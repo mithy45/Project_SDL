@@ -1,0 +1,1 @@
+/usr/bin/c++ -fPIC   -shared -Wl,-soname,libProject_SDL1.so -o libProject_SDL1.so CMakeFiles/Project_SDL1.dir/Project_SDL1.cpp.o 

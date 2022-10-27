@@ -1,0 +1,40 @@
+#IncludeRegexLine: ^[ 	]*[#%][ 	]*(include|import)[ 	]*[<"]([^">]+)([">])
+
+#IncludeRegexScan: ^.*$
+
+#IncludeRegexComplain: ^$
+
+#IncludeRegexTransform: 
+
+/home/quentinguyot/Documents/Cours/EXP_2/cpp/cpp_sem_1/Project_SDL/Base_Project/Project_SDL_Part1_base/Project_SDL1.cpp
+Project_SDL1.h
+/home/quentinguyot/Documents/Cours/EXP_2/cpp/cpp_sem_1/Project_SDL/Base_Project/Project_SDL_Part1_base/Project_SDL1.h
+algorithm
+-
+cassert
+-
+cstdlib
+-
+numeric
+-
+random
+-
+string
+-
+
+/home/quentinguyot/Documents/Cours/EXP_2/cpp/cpp_sem_1/Project_SDL/Base_Project/Project_SDL_Part1_base/Project_SDL1.h
+SDL.h
+-
+SDL_image.h
+-
+iostream
+-
+map
+-
+memory
+-
+optional
+-
+vector
+-
+
