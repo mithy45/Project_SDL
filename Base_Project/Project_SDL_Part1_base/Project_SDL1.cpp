@@ -1,4 +1,4 @@
-﻿// SDL_Test.cpp: Definiert den Einstiegspunkt für die Anwendung.
+﻿  // SDL_Test.cpp: Definiert den Einstiegspunkt für die Anwendung.
 //
 
 #include "Project_SDL1.h"
@@ -18,6 +18,31 @@ Application::Application(unsigned n_sheep, unsigned n_wolf)
   window_surface_ptr_ = SDL_GetWindowSurface(window_ptr_);
   if (!window_surface_ptr_)
     throw std::runtime_error("Application(): SDL_GetWindowSurface could not get the windows surface" + std::string(SDL_GetError()));
+}
+
+int Application::loop(unsigned period)
+{
+  unsigned time;
+  std::cout << "ici";
+  while (1)
+  {
+    while (SDL_PollEvent(&window_event_))
+    {
+      if (window_event_.type == SDL_QUIT)
+      {
+        return 0;
+      }
+    }
+    // time = SDL_GetTicks();
+    // if (time > period)
+    //   return 0;
+  }
+  return 0;
+}
+
+Application::~Application()
+{
+  SDL_DestroyWindow(window_ptr_);
 }
 
 void init()
@@ -46,5 +71,6 @@ namespace
 
     // Helper function to load a png for a specific surface
     // See SDL_ConvertSurface
+    return NULL;
   }
 } // namespace

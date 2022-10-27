@@ -22,6 +22,7 @@ constexpr unsigned frame_boundary = 100;
 
 // Helper function to initialize SDL
 void init();
+void close();
 
 class Animal {
 private:
@@ -41,7 +42,7 @@ public:
                  // Note that this function is not virtual, it does not depend
                  // on the static type of the instance
 
-  virtual void move(){} = 0; // todo: Animals move around, but in a different
+  virtual void move(){}; // todo: Animals move around, but in a different
                              // fashion depending on which type of animal
 };
 
@@ -90,6 +91,8 @@ private:
 public:
   Application(unsigned n_sheep, unsigned n_wolf); // Ctor
   ~Application();                                 // dtor
+
+  void close() const;
 
   int loop(unsigned period); // main loop of the application.
                              // this ensures that the screen is updated

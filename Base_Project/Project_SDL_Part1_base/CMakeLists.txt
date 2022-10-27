@@ -26,8 +26,6 @@ IF(WIN32)
   target_link_libraries(SDL_part1 PUBLIC SDL2 SDL2main SDL2_image)
 ELSE()
   message(STATUS "Building for Linux or Mac")
-  #set(SLD2 "./SDL2")
-  #set(SDL2_IMAGE "./SDL2_image")
 
   find_package(SDL2 REQUIRED)
   find_package(SDL2_IMAGE REQUIRED)
