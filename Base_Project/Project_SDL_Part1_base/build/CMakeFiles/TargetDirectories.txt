@@ -1,4 +1,0 @@
-/home/quentinguyot/Documents/Cours/EXP_2/cpp/cpp_sem_1/Project_SDL/Base_Project/Project_SDL_Part1_base/build/CMakeFiles/rebuild_cache.dir
-/home/quentinguyot/Documents/Cours/EXP_2/cpp/cpp_sem_1/Project_SDL/Base_Project/Project_SDL_Part1_base/build/CMakeFiles/edit_cache.dir
-/home/quentinguyot/Documents/Cours/EXP_2/cpp/cpp_sem_1/Project_SDL/Base_Project/Project_SDL_Part1_base/build/CMakeFiles/main.dir
-/home/quentinguyot/Documents/Cours/EXP_2/cpp/cpp_sem_1/Project_SDL/Base_Project/Project_SDL_Part1_base/build/CMakeFiles/Project_SDL1.dir

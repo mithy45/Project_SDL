@@ -26,9 +26,8 @@ IF(WIN32)
   target_link_libraries(SDL_part1 PUBLIC SDL2 SDL2main SDL2_image)
 ELSE()
   message(STATUS "Building for Linux or Mac")
-
-  set(SLD2 "/home/quentinguyot/Documents/Cours/EXP_2/cpp/cpp_sem_1/Project_SDL/Base_Project/Project_SDL_Part1_base/SDL2")
-  set(SDL2_IMAGE "/home/quentinguyot/Documents/Cours/EXP_2/cpp/cpp_sem_1/Project_SDL/Base_Project/Project_SDL_Part1_base/SDL2_image")
+  #set(SLD2 "./SDL2")
+  #set(SDL2_IMAGE "./SDL2_image")
 
   find_package(SDL2 REQUIRED)
   find_package(SDL2_IMAGE REQUIRED)
