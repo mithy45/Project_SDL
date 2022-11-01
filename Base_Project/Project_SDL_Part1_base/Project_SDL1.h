@@ -12,17 +12,21 @@
 #include <vector>
 
 // Defintions
-constexpr double frame_rate = 60.0; // refresh rate
-constexpr double frame_time = 1. / frame_rate;
-constexpr unsigned frame_width = 1400; // Width of window in pixel
-constexpr unsigned frame_height = 900; // Height of window in pixel
-// Minimal distance of animals to the border
-// of the screen
+constexpr double frame_rate = 60.0;
+constexpr double frame_delay = 1000.f / frame_rate;
+constexpr unsigned frame_width = 1400;
+constexpr unsigned frame_height = 900;
+
 constexpr unsigned frame_boundary = 100;
 
+constexpr char title[] = "Project_SDL";
+constexpr char sheep_path[] = "../../media/sheep.png";
+constexpr char wolf_path[] = "../../media/wolf.png";
+constexpr char shepherd_dog_path[] = "../../media/shepherd_dog.png";
+
 // Helper function to initialize SDL
-void init();
-void close();
+void init_sdl();
+void close_sdl();
 
 class Animal {
 private:
@@ -60,44 +64,51 @@ class Sheep : public Animal {
 // Use only sheep at first. Once the application works
 // for sheep you can add the wolves
 
-// The "ground" on which all the animals live (like the std::vector
-// in the zoo example).
-class Ground {
+// Class managing animals
+class Ground
+{
 private:
-  // Attention, NON-OWNING ptr, again to the screen
-  SDL_Surface* window_surface_ptr_;
-
-  // Some attribute to store all the wolves and sheep
-  // here
+    // Non-owning ptr
+    SDL_Renderer *window_renderer_ptr;
+    // Owning ptr
+    std::vector<Animal *> animals;
 
 public:
-  Ground(SDL_Surface* window_surface_ptr); // todo: Ctor
-  ~Ground(){}; // todo: Dtor, again for clean up (if necessary)
-  void add_animal(Animal a); // todo: Add an animal
-  void update(); // todo: "refresh the screen": Move animals and draw them
-  // Possibly other methods, depends on your implementation
+    // Constructor && Destructor
+    Ground(SDL_Renderer *window_renderer_ptr, unsigned n_sheep, unsigned n_wolf);
+    ~Ground();
+
+    // Public methods
+    // Add animal to vector
+    void add_animal(Animal *a);
+    // Moving animal and draw
+    void update();
 };
 
-// The application class, which is in charge of generating the window
-class Application {
+// Class for the game
+class Application
+{
 private:
-  // The following are OWNING ptrs
-  SDL_Window* window_ptr_;
-  SDL_Surface* window_surface_ptr_;
-  SDL_Event window_event_;
+    // Owning ptr
+    SDL_Window *window_ptr;
+    SDL_Renderer *window_renderer_ptr;
 
-  // Other attributes here, for example an instance of ground
+    // Class managing animals and background of renderer
+    Ground *ground_ptr;
 
 public:
-  Application(unsigned n_sheep, unsigned n_wolf); // Ctor
-  ~Application();                                 // dtor
+    // Constructor && Destructor
+    Application(unsigned n_sheep, unsigned n_wolf);
+    ~Application();
 
-  void close() const;
+    // Public methods
+    // Main loop of the application.
+    // this ensures that the screen is updated at the correct rate.
+    int loop(unsigned period);
 
-  int loop(unsigned period); // main loop of the application.
-                             // this ensures that the screen is updated
-                             // at the correct rate.
-                             // See SDL_GetTicks() and SDL_Delay() to enforce a
-                             // duration the application should terminate after
-                             // 'period' seconds
+private:    
+    bool playing;
+
+    // Handler events like click or quit game
+    void handle_events();
 };
