@@ -28,41 +28,72 @@ constexpr char shepherd_dog_path[] = "../../media/shepherd_dog.png";
 void init_sdl();
 void close_sdl();
 
-class Animal {
-private:
-  SDL_Surface* window_surface_ptr_; // ptr to the surface on which we want the
-                                    // animal to be drawn, also non-owning
-  SDL_Surface* image_ptr_; // The texture of the sheep (the loaded image), use
-                           // load_surface_for
-  // todo: Attribute(s) to define its position
-public:
-  Animal(const std::string& file_path, SDL_Surface* window_surface_ptr){};
-  // todo: The constructor has to load the sdl_surface that corresponds to the
-  // texture
-  ~Animal(){}; // todo: Use the destructor to release memory and "clean up
-               // behind you"
+// Class inheriting from Animal
+class Animal
+{
+  private:
+    // The texture of the image loaded
+    SDL_Texture *image_ptr;
 
-  void draw(){}; // todo: Draw the animal on the screen <-> window_surface_ptr.
-                 // Note that this function is not virtual, it does not depend
-                 // on the static type of the instance
+  public:
+    // Constructor && Destructor
+    Animal(const std::string &file_path, SDL_Renderer *window_renderer_ptr);
+    ~Animal();
 
-  virtual void move(){}; // todo: Animals move around, but in a different
-                             // fashion depending on which type of animal
+    // Public methods
+    // Draw the animal on the screen <-> window_renderer_ptr
+    void draw();
+
+    // Public virtual methods
+    virtual void move(){};
+
+  protected:
+    // Non-owning ptr
+    SDL_Renderer *window_renderer_ptr;
+
+    // The rect of img (Pos x, y and height weight)
+    SDL_Rect rect;
+    int speed;
 };
 
-// Insert here:
-// class sheep, derived from animal
-class Sheep : public Animal {
-  // todo
-  // Ctor
-  // Dtor
-  // implement functions that are purely virtual in base class
+
+// Class inheriting from Animal
+class Sheep : public Animal
+{
+  public:
+    // Constructor && Destructor
+    Sheep(const std::string &file_path, SDL_Renderer *window_renderer_ptr);
+    ~Sheep(){};
+
+    // Public override methods
+    void move() override;
 };
 
-// Insert here:
-// class wolf, derived from animal
-// Use only sheep at first. Once the application works
-// for sheep you can add the wolves
+// Class inheriting from Animal
+class Wolf : public Animal
+{
+  public:
+    // Constructor && Destructor
+    Wolf(const std::string &file_path, SDL_Renderer *window_renderer_ptr);
+    ~Wolf(){};
+
+    // Public override methods
+    void move() override;
+};
+
+
+// Class inheriting from Animal
+class ShepherdDog : public Animal
+{
+  public:
+    // Constructor && Destructor
+    ShepherdDog(const std::string &file_path, SDL_Renderer *window_renderer_ptr);
+    ~ShepherdDog(){};
+
+    void move() override;
+};
+
+
 
 // Class managing animals
 class Ground
