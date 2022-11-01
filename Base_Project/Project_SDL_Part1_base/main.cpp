@@ -4,26 +4,26 @@
 
 int main(int argc, char* argv[]) {
 
-  std::cout << "Starting up the application" << std::endl;
+    std::cout << "Starting up the application" << std::endl;
 
-  if (argc != 4)
-    throw std::runtime_error("Need three arguments - "
-                             "number of sheep, number of wolves, "
-                             "simulation time\n");
+    if (argc != 4)
+        throw std::runtime_error("Need three arguments - "
+                                "number of sheep, number of wolves, "
+                                "simulation time\n");
 
-  init();
+    init_sdl();
 
-  std::cout << "Done with initilization" << std::endl;
+    std::cout << "Done with initilization" << std::endl;
 
-  Application my_app(std::stoul(argv[1]), std::stoul(argv[2]));
+    Application my_app(std::stoul(argv[1]), std::stoul(argv[2]));
 
-  std::cout << "Created window" << std::endl;
+    std::cout << "Created window" << std::endl;
 
-  int retval = my_app.loop(std::stoul(argv[3]));
+    int retval = my_app.loop(std::stoul(argv[3]));
 
-  std::cout << "Exiting application with code " << retval << std::endl;
+    std::cout << "Exiting application with code " << retval << std::endl;
 
-  SDL_Quit();
+    close_sdl();
 
-  return retval;
+    return retval;
 }
