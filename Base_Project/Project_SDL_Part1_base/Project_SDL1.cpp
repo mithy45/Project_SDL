@@ -24,6 +24,14 @@ namespace
             throw std::runtime_error("SDL_CreateWindowAndRenderer"
                                     + std::string(SDL_GetError()));
     }
+
+    // Fill the screen
+    void draw_color(SDL_Renderer *renderer_ptr, Uint8 r, Uint8 g, Uint8 b)
+    {
+        if (SDL_SetRenderDrawColor(renderer_ptr, r, g, b, SDL_ALPHA_OPAQUE) != 0)
+            throw std::runtime_error("SDL_SetRenderDrawColor"
+                                    + std::string(SDL_GetError()));
+    }
 }
 
 
@@ -47,6 +55,59 @@ void close_sdl()
 {
     SDL_Quit();
     IMG_Quit();
+}
+
+// Ground
+Ground::Ground(SDL_Renderer *window_renderer_ptr, unsigned n_sheep, unsigned n_wolf)
+{
+    std::cout << "Constructor Ground" << std::endl;
+
+    this->window_renderer_ptr = window_renderer_ptr;
+    this->animals = std::vector<Animal*>();
+
+    for (unsigned i = 0; i < n_sheep; ++i)
+    {
+        this->add_animal(new Sheep(sheep_path, this->window_renderer_ptr));
+    }
+    
+    for (unsigned i = 0; i < n_wolf; ++i)
+    {
+        this->add_animal(new Wolf(wolf_path, this->window_renderer_ptr));
+    }
+
+    this->add_animal(new ShepherdDog(shepherd_dog_path, this->window_renderer_ptr));
+}
+
+
+// Delete all animals
+Ground::~Ground()
+{
+    std::cout << "Destructor Ground" << std::endl;
+
+    for (Animal* animal : this->animals)
+    {
+        delete animal;
+    }
+}
+
+
+// Add an animal
+void Ground::add_animal(Animal* a)
+{
+    this->animals.push_back(a);
+}
+
+
+// Move and draw animals
+void Ground::update()
+{
+    // Fill a green to the renderer before img 
+    draw_color(this->window_renderer_ptr, 0x00, 0xFF, 0x00);
+    for (Animal* animal : this->animals)
+    {
+        animal->move();
+        animal->draw();
+    }
 }
 
 // Application
