@@ -32,6 +32,59 @@ namespace
             throw std::runtime_error("SDL_SetRenderDrawColor"
                                     + std::string(SDL_GetError()));
     }
+    // Create texture from img loaded given by args and fill the height and width of img
+    SDL_Texture *create_texture_from(const std::string &path, SDL_Renderer *renderer_ptr, SDL_Rect *rect)
+    {
+        SDL_Surface *img_loaded = IMG_Load(path.c_str());
+        if (!img_loaded)
+            throw std::runtime_error("IMG_Load"
+                                    + std::string(IMG_GetError()));
+        rect->h = img_loaded->h;
+        rect->w = img_loaded->w;
+        SDL_Texture *texture = SDL_CreateTextureFromSurface(renderer_ptr, img_loaded);
+        if (!texture)
+            throw std::runtime_error("SDL_ConvertSurface"
+                                    + std::string(IMG_GetError()));
+        SDL_FreeSurface(img_loaded);
+        return texture;
+    }
+    // Change the pos of rect
+    void random_move(SDL_Rect *rect, SDL_Renderer *renderer_ptr, int speed)
+    {
+        int height, width;
+
+        // Get the current renderer size
+        if (SDL_GetRendererOutputSize(renderer_ptr, &width, &height) != 0)
+            throw std::runtime_error("SDL_GetRendererOutputSize"
+                                    + std::string(SDL_GetError()));
+        
+        std::cout << "width: " << width << "height: " << height << std::endl;
+
+        std::default_random_engine generator(std::random_device{}());
+        std::uniform_int_distribution<int> direction(1, 4);
+        int random = direction(generator);
+
+        if (random == 1)
+        {
+            if (rect->y + speed + rect->h <= height)
+                rect->y += speed;
+        }
+        else if (random == 2)
+        {
+            if (rect->y - speed + rect->h > 0)
+                rect->y -= speed;
+        }
+        else if (random == 3)
+        {
+            if (rect->x + speed + rect->w <= width)
+                rect->x += speed;
+        }
+        else if (random == 4)
+        {
+            if (rect->x - speed + rect->w > 0)
+                rect->x -= speed;
+        }
+    }
 }
 
 
@@ -55,6 +108,83 @@ void close_sdl()
 {
     SDL_Quit();
     IMG_Quit();
+}
+
+// Animal
+Animal::Animal(const std::string &file_path, SDL_Renderer *window_renderer_ptr)
+{
+    std::cout << "Constructor animal" << std::endl;
+
+    this->window_renderer_ptr = window_renderer_ptr;
+    // Load img and get the texture for the renderer
+    this->image_ptr = create_texture_from(file_path, this->window_renderer_ptr, &this->rect);
+    
+
+    // Random pos
+    std::default_random_engine generator(std::random_device{}());
+    std::uniform_int_distribution<int> dis_width(this->rect.w, frame_width - this->rect.w);
+    std::uniform_int_distribution<int> dis_height(this->rect.h, frame_height - this->rect.h);
+
+    this->rect.x = dis_width(generator);
+    this->rect.y = dis_height(generator);
+}
+
+
+Animal::~Animal()
+{
+    std::cout << "Desctructor animal" << std::endl;
+
+    SDL_DestroyTexture(this->image_ptr);
+}
+
+
+// Copy the image loaded into the renderer
+void Animal::draw()
+{
+    if (SDL_RenderCopy(this->window_renderer_ptr, this->image_ptr, NULL, &this->rect))
+        throw std::runtime_error("SDL_RenderCopy"
+                                + std::string(SDL_GetError()));
+}
+
+
+// Sheep
+Sheep::Sheep(const std::string &file_path, SDL_Renderer *window_renderer_ptr) : Animal(file_path, window_renderer_ptr)
+{
+    this->speed = 2;
+}
+
+
+// Random move
+void Sheep::move()
+{
+    random_move(&this->rect, this->window_renderer_ptr, this->speed);
+}
+
+
+// Wolf
+Wolf::Wolf(const std::string &file_path, SDL_Renderer *window_renderer_ptr) : Animal(file_path, window_renderer_ptr)
+{
+    this->speed = 4;
+}
+
+
+// Random move
+void Wolf::move()
+{
+    random_move(&this->rect, this->window_renderer_ptr, this->speed);
+}
+
+
+ShepherdDog::ShepherdDog(const std::string &file_path, SDL_Renderer *window_renderer_ptr) : Animal(file_path, window_renderer_ptr)
+{
+    this->speed = 3;
+}
+
+
+// Random move
+void ShepherdDog::move()
+{
+    random_move(&this->rect, this->window_renderer_ptr, this->speed);
 }
 
 // Ground
