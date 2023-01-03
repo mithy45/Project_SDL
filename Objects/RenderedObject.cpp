@@ -96,3 +96,8 @@ void RenderedObject::renderer_width_height(SDL_Renderer *renderer_ptr, int *widt
         throw std::runtime_error("SDL_GetRendererOutputSize"
                                 + std::string(SDL_GetError()));
 }
+
+bool RenderedObject::is_point_in_rect(int x, int y, SDL_Rect rect)
+{
+    return x >= rect.x && x <= (rect.x + rect.w) && y >= rect.y && y <= (rect.y + rect.h);
+}

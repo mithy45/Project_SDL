@@ -19,6 +19,8 @@ class RenderedObject
         double get_distance(std::shared_ptr<RenderedObject> rendered_object);
 
         inline SDL_Rect get_rect() const {return this->rect;};
+        static void renderer_width_height(SDL_Renderer *renderer_ptr, int *width, int *height);
+        static bool is_point_in_rect(int x, int y, SDL_Rect rect);
 
     protected:
         // Not the owner of this pointer
@@ -27,7 +29,6 @@ class RenderedObject
 
         void render_image();
         void render_rectangle(SDL_Color color);
-        static void renderer_width_height(SDL_Renderer *renderer_ptr, int *width, int *height);
 
     private:
         // Owner pointer
