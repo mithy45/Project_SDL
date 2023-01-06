@@ -15,6 +15,8 @@ Sheep::Sheep(SDL_Renderer *window_renderer_ptr,
         this->add_property(MALE);
     else
         this->add_property(FEMALE);
+
+    this->time_to_sex = TimerObject(timing_sheep_sex);
 }
 
 
@@ -35,7 +37,14 @@ void Sheep::onMouseClick(SDL_MouseButtonEvent &mouse_button_event)
 
 void Sheep::onLiving()
 {
-    
+    if (!this->contains_property(CAN_SPAWN_SHEEP) && this->time_to_sex.paused)
+        this->time_to_sex.start();
+
+    if (this->time_to_sex.is_time_reached())
+    {
+        this->add_property(CAN_SPAWN_SHEEP);
+        this->time_to_sex.paused = true;
+    }   
 }
 
 void Sheep::interact(std::shared_ptr<GameObject> game_object)
