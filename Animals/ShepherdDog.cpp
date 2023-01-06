@@ -66,10 +66,10 @@ void ShepherdDog::onDying()
 
 void ShepherdDog::move()
 {
+    int width, height;
+    renderer_width_height(this->window_renderer_ptr ,&width, &height);
     if (this->nearest_prey_distance <= distance_shepherddog_prey && this->nearest_prey_distance != 0)
     {
-        int width, height;
-        renderer_width_height(this->window_renderer_ptr ,&width, &height);
         // If the prey is on the right
         if (this->rect.x + this->rect.w < this->nearest_prey_rect.x + this->velocity_x)
         {
@@ -127,7 +127,7 @@ void ShepherdDog::move()
             this->is_hunting_at_point = false;
     }
     else
-        random_move(&this->rect, this->window_renderer_ptr, this->velocity_x, this->velocity_y);
+        random_move(&this->rect, this->window_renderer_ptr, this->velocity_x, this->velocity_y, width, height);
 
     this->reset_prey();
 }

@@ -83,9 +83,11 @@ void Sheep::onDying()
 
 void Sheep::move()
 {
+    int width, height;
+    renderer_width_height(this->window_renderer_ptr ,&width, &height);
     if (this->nearest_predator_distance == 0 || this->nearest_predator_distance >= distance_sheep_predator)
     {
-        random_move(&this->rect, this->window_renderer_ptr, this->velocity_x, this->velocity_y);
+        random_move(&this->rect, this->window_renderer_ptr, this->velocity_x, this->velocity_y, width, height);
         return;
     }
 
@@ -97,11 +99,7 @@ void Sheep::move()
         this->is_selected = true;
     }
     else
-    {
         this->is_selected = false;
-    }
-    int width, height;
-    renderer_width_height(this->window_renderer_ptr ,&width, &height);
 
     // If the predator is on the right
     if (this->rect.x + this->rect.w < this->nearest_predator_rect.x)

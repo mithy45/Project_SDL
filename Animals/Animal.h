@@ -2,6 +2,9 @@
 #define ANIMAL_H
 
 #include "Objects/GameObject.h"
+#include "Objects/PredatorObject.h"
+#include "Objects/PreyObject.h"
+#include "Objects/TimerObject.h"
 
 #include <random>
 

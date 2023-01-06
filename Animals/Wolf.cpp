@@ -67,14 +67,13 @@ void Wolf::interact(std::shared_ptr<GameObject> game_object)
 
 void Wolf::move()
 {
-    if (this->nearest_prey_distance == 0.0 && this->nearest_predator_distance == 0.0)
-    {
-        random_move(&this->rect, this->window_renderer_ptr, this->velocity_x, this->velocity_y);
-        return;
-    }
-
     int width, height;
     renderer_width_height(this->window_renderer_ptr ,&width, &height);
+    if (this->nearest_prey_distance == 0.0 && this->nearest_predator_distance == 0.0)
+    {
+        random_move(&this->rect, this->window_renderer_ptr, this->velocity_x, this->velocity_y, width, height);
+        return;
+    }
 
     if (this->nearest_predator_distance <= distance_wolf_predator && this->nearest_predator_distance != 0)
     {
