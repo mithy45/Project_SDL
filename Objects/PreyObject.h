@@ -9,11 +9,11 @@
 class PreyObject
 {
     public:
-        PreyObject(std::initializer_list<GameProperty> predator_list);
+        PreyObject(const std::initializer_list<GameProperty>& predator_list);
         ~PreyObject(){};
 
     protected:
-        void letsRun(double predator_distance, SDL_Rect predator);
+        void letsRun(const double& predator_distance, const SDL_Rect& predator);
         void reset_predator();
 
         std::set<GameProperty> predator_list;

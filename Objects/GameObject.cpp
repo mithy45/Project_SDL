@@ -3,7 +3,7 @@
 constexpr unsigned frame_width = 1400;
 constexpr unsigned frame_height = 900;
 
-GameObject::GameObject(std::initializer_list<GameProperty> properties,
+GameObject::GameObject(const std::initializer_list<GameProperty>& properties,
                     SDL_Renderer *window_renderer_ptr,
                     const std::string &file_path,
                     int velocity_x,

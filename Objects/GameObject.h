@@ -13,7 +13,7 @@
 class GameObject : public RenderedObject, public MovingObject, public LifeCycleObject, public ClickableObject
 {
     public:
-        GameObject(std::initializer_list<GameProperty> properties,
+        GameObject(const std::initializer_list<GameProperty>& properties,
                     SDL_Renderer *window_renderer_ptr,
                     const std::string &file_path,
                     int velocity_x,
@@ -21,7 +21,7 @@ class GameObject : public RenderedObject, public MovingObject, public LifeCycleO
         ~GameObject() = default;
 
         // Virtual method
-        virtual void interact(std::shared_ptr<GameObject> game_object) = 0;
+        virtual void interact(const std::shared_ptr<GameObject>& game_object) = 0;
 
         void add_property(GameProperty property);
         void remove_property(GameProperty property);

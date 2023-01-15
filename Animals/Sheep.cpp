@@ -47,7 +47,7 @@ void Sheep::onLiving()
     }   
 }
 
-void Sheep::interact(std::shared_ptr<GameObject> game_object)
+void Sheep::interact(const std::shared_ptr<GameObject>& game_object)
 {
     for (GameProperty property : this->predator_list)
     {
@@ -87,7 +87,7 @@ void Sheep::move()
     renderer_width_height(this->window_renderer_ptr ,&width, &height);
     if (this->nearest_predator_distance == 0 || this->nearest_predator_distance >= distance_sheep_predator)
     {
-        random_move(&this->rect, this->window_renderer_ptr, this->velocity_x, this->velocity_y, width, height);
+        random_move(&this->rect, this->velocity_x, this->velocity_y, width, height);
         return;
     }
 

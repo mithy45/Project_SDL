@@ -16,7 +16,7 @@ class Shepherd : public PlayableCharacter
         // Override method
         void onMouseClick(SDL_MouseButtonEvent &mouse_button_event) override;
         void onLiving() override;
-        void interact(std::shared_ptr<GameObject> game_object) override;
+        void interact(const std::shared_ptr<GameObject>& game_object) override;
         void onDying() override;
         void render() override;
 };

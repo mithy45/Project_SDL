@@ -32,7 +32,7 @@ void Shepherd::onLiving()
 }
 
 
-void Shepherd::interact(std::shared_ptr<GameObject> game_object)
+void Shepherd::interact(const std::shared_ptr<GameObject>& game_object)
 {
     
 }

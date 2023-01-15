@@ -1,6 +1,6 @@
 #include "Animal.h"
 
-Animal::Animal(std::initializer_list<GameProperty> properties,
+Animal::Animal(const std::initializer_list<GameProperty>& properties,
                 SDL_Renderer *window_renderer_ptr,
                 const std::string &file_path,
                 int velocity_x,

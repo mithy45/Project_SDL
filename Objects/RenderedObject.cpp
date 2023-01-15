@@ -22,7 +22,7 @@ namespace
         return texture;
     }
 
-    double distance_between_rect(SDL_Rect rect_a, SDL_Rect rect_b)
+    double distance_between_rect(const SDL_Rect& rect_a, const SDL_Rect& rect_b)
     {
         double x1 = (rect_a.x + rect_a.x + rect_a.w) / 2.0;
         double y1 = (rect_a.y + rect_a.y + rect_a.h) / 2.0;
@@ -53,7 +53,7 @@ RenderedObject::~RenderedObject()
 }
 
 
-bool RenderedObject::collide(std::shared_ptr<RenderedObject> rendered_object)
+bool RenderedObject::collide(const std::shared_ptr<RenderedObject>& rendered_object)
 {
     SDL_Rect Rect_A = this->get_rect();
     SDL_Rect Rect_B = rendered_object->get_rect();
@@ -66,7 +66,7 @@ bool RenderedObject::collide(std::shared_ptr<RenderedObject> rendered_object)
 }
 
 
-double RenderedObject::get_distance(std::shared_ptr<RenderedObject> rendered_object)
+double RenderedObject::get_distance(const std::shared_ptr<RenderedObject>& rendered_object)
 {
     return distance_between_rect(this->get_rect(), rendered_object->get_rect());
 }
@@ -78,7 +78,7 @@ void RenderedObject::render_image()
                                 + std::string(SDL_GetError()));
 }
 
-void RenderedObject::render_rectangle(SDL_Color color)
+void RenderedObject::render_rectangle(const SDL_Color& color)
 {
     if(SDL_SetRenderDrawColor(this->window_renderer_ptr, color.r, color.g, color.b, color.a))
         throw std::runtime_error("SDL_SetRenderDrawColor"
@@ -97,7 +97,7 @@ void RenderedObject::renderer_width_height(SDL_Renderer *renderer_ptr, int *widt
                                 + std::string(SDL_GetError()));
 }
 
-bool RenderedObject::is_point_in_rect(int x, int y, SDL_Rect rect)
+bool RenderedObject::is_point_in_rect(int x, int y, const SDL_Rect& rect)
 {
     return x >= rect.x && x <= (rect.x + rect.w) && y >= rect.y && y <= (rect.y + rect.h);
 }

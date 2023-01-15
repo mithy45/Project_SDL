@@ -10,7 +10,7 @@
 
 namespace
 {    
-    void random_move(SDL_Rect *rect, SDL_Renderer *renderer_ptr, int velocity_x, int velocity_y, int width, int height)
+    void random_move(SDL_Rect *rect, int velocity_x, int velocity_y, int width, int height)
     {
         std::default_random_engine generator(std::random_device{}());
         std::uniform_int_distribution<int> direction(1, 4);
@@ -44,7 +44,7 @@ class Animal : public GameObject
 {
     public:
         // Constructor && Destructor
-        Animal(std::initializer_list<GameProperty> properties,
+        Animal(const std::initializer_list<GameProperty>& properties,
                 SDL_Renderer *window_renderer_ptr,
                 const std::string &file_path,
                 int velocity_x,

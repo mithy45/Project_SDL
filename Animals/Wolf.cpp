@@ -35,7 +35,7 @@ void Wolf::onLiving()
         this->add_property(DEAD);
 }
 
-void Wolf::interact(std::shared_ptr<GameObject> game_object)
+void Wolf::interact(const std::shared_ptr<GameObject>& game_object)
 {
     for (GameProperty property : this->prey_list)
     {
@@ -71,7 +71,7 @@ void Wolf::move()
     renderer_width_height(this->window_renderer_ptr ,&width, &height);
     if (this->nearest_prey_distance == 0.0 && this->nearest_predator_distance == 0.0)
     {
-        random_move(&this->rect, this->window_renderer_ptr, this->velocity_x, this->velocity_y, width, height);
+        random_move(&this->rect, this->velocity_x, this->velocity_y, width, height);
         return;
     }
 

@@ -38,7 +38,7 @@ void ShepherdDog::onLiving()
 }
 
 
-void ShepherdDog::interact(std::shared_ptr<GameObject> game_object)
+void ShepherdDog::interact(const std::shared_ptr<GameObject>& game_object)
 {
     for (GameProperty property : this->prey_list)
     {
@@ -127,7 +127,7 @@ void ShepherdDog::move()
             this->is_hunting_at_point = false;
     }
     else
-        random_move(&this->rect, this->window_renderer_ptr, this->velocity_x, this->velocity_y, width, height);
+        random_move(&this->rect, this->velocity_x, this->velocity_y, width, height);
 
     this->reset_prey();
 }
